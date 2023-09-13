@@ -1,3 +1,6 @@
+import { Routes, Route } from 'react-router-dom';
+
+
 import './App.css';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -7,11 +10,13 @@ function App() {
     <div className="App">
       <div id="box">
         {/*Header*/}
-        <Header></Header>
+        <Header />
         {/* Main Content */}
         <main id="main-content">
-          {/*Home Page*/}
-          <Home></Home>
+          <Routes>
+            <Route path='/' element={<Home />}></Route>
+            {/*Home Page*/}
+          </Routes>
         </main>
 
         {/* Login Page ( Only for Guest users ) */}
