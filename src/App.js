@@ -9,9 +9,11 @@ function App() {
         {/*Header*/}
         <Header></Header>
         {/* Main Content */}
-        <main id="main-content"></main>
-        {/*Home Page*/}
-        <Home></Home>
+        <main id="main-content">
+          {/*Home Page*/}
+          <Home></Home>
+        </main>
+
         {/* Login Page ( Only for Guest users ) */}
         {/* <section id="login-page" className="auth">
           <form id="login">
