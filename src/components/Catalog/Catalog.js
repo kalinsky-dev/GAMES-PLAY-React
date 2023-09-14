@@ -1,5 +1,4 @@
 
-
 const Catalog = () => {
   return (
     <section id="catalog-page">
