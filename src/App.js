@@ -5,6 +5,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 function App() {
   return (
@@ -17,37 +18,13 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/login' element={<Login />}></Route>
+            <Route path='/register' element={<Register />}></Route>
 
           </Routes>
         </main>
 
 
-        {/* Register Page ( Only for Guest users ) */}
-        {/* <section id="register-page" className="content auth">
-          <form id="register">
-            <div className="container">
-              <div className="brand-logo" />
-              <h1>Register</h1>
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="maria@email.com"
-              />
-              <label htmlFor="pass">Password:</label>
-              <input type="password" name="password" id="register-password" />
-              <label htmlFor="con-pass">Confirm Password:</label>
-              <input type="password" name="confirm-password" id="confirm-password" />
-              <input className="btn submit" type="submit" defaultValue="Register" />
-              <p className="field">
-                <span>
-                  If you already have profile click <a href="#">here</a>
-                </span>
-              </p>
-            </div>
-          </form>
-        </section> */}
+
         {/* Create Page ( Only for logged-in users ) */}
         {/* <section id="create-page" className="auth">
           <form id="create">

@@ -24,7 +24,7 @@ const Login = () => {
         </div>
       </form>
     </section>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
