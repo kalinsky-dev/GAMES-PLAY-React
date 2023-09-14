@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
+import Login from './components/Login/Login';
 
 function App() {
   return (
@@ -15,34 +16,12 @@ function App() {
         <main id="main-content">
           <Routes>
             <Route path='/' element={<Home />}></Route>
-            {/*Home Page*/}
+            <Route path='/login' element={<Login />}></Route>
+
           </Routes>
         </main>
 
-        {/* Login Page ( Only for Guest users ) */}
-        {/* <section id="login-page" className="auth">
-          <form id="login">
-            <div className="container">
-              <div className="brand-logo" />
-              <h1>Login</h1>
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Sokka@gmail.com"
-              />
-              <label htmlFor="login-pass">Password:</label>
-              <input type="password" id="login-password" name="password" />
-              <input type="submit" className="btn submit" defaultValue="Login" />
-              <p className="field">
-                <span>
-                  If you don't have profile click <a href="#">here</a>
-                </span>
-              </p>
-            </div>
-          </form>
-        </section> */}
+
         {/* Register Page ( Only for Guest users ) */}
         {/* <section id="register-page" className="content auth">
           <form id="register">
