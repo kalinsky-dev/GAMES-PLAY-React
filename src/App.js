@@ -7,6 +7,7 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import CreateGame from './components/CreateGame/GreateGame';
+import Catalog from './components/Catalog/Catalog';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
             <Route path='/login' element={<Login />}></Route>
             <Route path='/register' element={<Register />}></Route>
             <Route path='/create' element={<CreateGame />}></Route>
-
+            <Route path='/catalog' element={<Catalog />}></Route>
           </Routes>
         </main>
 
@@ -107,41 +108,7 @@ function App() {
             </form>
           </article>
         </section> */}
-        {/* Catalogue */}
-        {/* <section id="catalog-page">
-          <h1>All Games</h1>
-          <div className="allGames">
-            <div className="allGames-info">
-              <img src="./images/avatar-1.jpg" />
-              <h6>Action</h6>
-              <h2>Cover Fire</h2>
-              <a href="#" className="details-button">
-                Details
-              </a>
-            </div>
-          </div>
-          <div className="allGames">
-            <div className="allGames-info">
-              <img src="./images/avatar-1.jpg" />
-              <h6>Action</h6>
-              <h2>Zombie lang</h2>
-              <a href="#" className="details-button">
-                Details
-              </a>
-            </div>
-          </div>
-          <div className="allGames">
-            <div className="allGames-info">
-              <img src="./images/avatar-1.jpg" />
-              <h6>Action</h6>
-              <h2>MineCraft</h2>
-              <a href="#" className="details-button">
-                Details
-              </a>
-            </div>
-          </div>
-          <h3 className="no-articles">No articles yet</h3>
-        </section> */}
+
       </div>
 
     </div>
