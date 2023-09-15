@@ -1,8 +1,21 @@
 
-const CreateGame = () => {
+const CreateGame = ({addGameHandler}) => {
+  
+  // console.log(addGameHandler);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const gameData = Object.fromEntries(new FormData(e.target));
+
+    // console.log(gameData);
+
+    addGameHandler(gameData);
+  }
+
   return (
     <section id="create-page" className="auth">
-      <form id="create">
+      <form id="create" onSubmit={onSubmit}>
         <div className="container">
           <h1>Create Game</h1>
           <label htmlFor="leg-title">Legendary title:</label>
@@ -39,7 +52,7 @@ const CreateGame = () => {
           <input
             className="btn submit"
             type="submit"
-            defaultValue="Create Game"
+            value="Create Game"
           />
         </div>
       </form>
