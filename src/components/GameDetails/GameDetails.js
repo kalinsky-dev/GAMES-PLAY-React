@@ -12,6 +12,11 @@ const GameDetails = ({
     comment: '',
   });
 
+  const [error, setError] = useState({
+    username: '',
+    comment: '',
+  })
+
   const game = games.find(x => x._id === gameId);
 
   const addCommentHandler = (e) => {
@@ -30,6 +35,22 @@ const GameDetails = ({
     setComment(state => ({
       ...state,
       [e.target.name]: e.target.value
+    }));
+  };
+
+  const validateUsername = (e) => {
+    const username = e.target.value;
+    let errorMessage = '';
+
+    if (username.length < 4) {
+      errorMessage = 'Username must be longer than 4 characters';
+    } else if (username.length > 10) {
+      errorMessage = 'Username must be shorter than 10 characters';
+    }
+
+    setError(state => ({
+      ...state,
+      username: errorMessage,
     }));
   };
 
@@ -78,8 +99,12 @@ const GameDetails = ({
             name='username'
             placeholder="Kalin Hristov"
             onChange={onChange}
+            onBlur={validateUsername}
             value={comment.username}
           />
+          {error.username &&
+            <div style={{ color: 'red' }}>{error.username}</div>
+          }
           <textarea
             name="comment"
             placeholder="Comment......"
