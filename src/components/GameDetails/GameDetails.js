@@ -46,7 +46,7 @@ const GameDetails = ({
       errorMessage = 'Username must be longer than 4 characters';
     } else if (username.length > 10) {
       errorMessage = 'Username must be shorter than 10 characters';
-    }
+    };
 
     setError(state => ({
       ...state,
