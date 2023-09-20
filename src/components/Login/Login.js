@@ -1,9 +1,23 @@
+import { useNavigate } from 'react-router-dom';
+
+import * as authService from '../../services/authService';
+
 const Login = () => {
+  const navigate = useNavigate();
+
   const onSubmit = (e) => {
     e.preventDefault();
     const { email, password } = Object.fromEntries(new FormData(e.target));
-    console.log({email,password});
-  
+    // console.log({ email, password });
+
+    authService
+      .login(email, password)
+      .then((authData) => {
+        console.log(authData);
+      })
+      .catch(() => {
+        navigate('/404');
+      });
   };
 
   return (
