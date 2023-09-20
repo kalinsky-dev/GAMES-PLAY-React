@@ -17,7 +17,16 @@ const Register = lazy(() => import('./components/Register/Register'));
 
 function App() {
   const [games, setGames] = useState([]);
+  const [auth, setAuth] = useState({});
   const navigate = useNavigate();
+
+  const userLogin = (authData) => {
+    setAuth(authData);
+  };
+
+  const userLogout = () => {
+    setAuth({});
+  };
 
   const addComment = (gameId, comment) => {
     setGames((state) => {
@@ -50,7 +59,7 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{}}>
+    <AuthContext.Provider value={{ auth, userLogin, userLogout }}>
       <div className="App">
         <div id="box">
           {/*Header*/}
