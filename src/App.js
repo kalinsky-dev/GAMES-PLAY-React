@@ -8,6 +8,7 @@ import { AuthContext } from './contexts/AuthContext';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
+import Logout from './components/Logout/Logout';
 import CreateGame from './components/CreateGame/GreateGame';
 import Catalog from './components/Catalog/Catalog';
 import GameDetails from './components/GameDetails/GameDetails';
@@ -77,6 +78,7 @@ function App() {
                   </Suspense>
                 }
               />
+              <Route path="/logout" element={<Logout />} />
               <Route
                 path="/create"
                 element={<CreateGame addGameHandler={addGameHandler} />}
