@@ -13,12 +13,13 @@ import CreateGame from './components/CreateGame/GreateGame';
 import Catalog from './components/Catalog/Catalog';
 import GameDetails from './components/GameDetails/GameDetails';
 import './App.css';
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 const Register = lazy(() => import('./components/Register/Register'));
 
 function App() {
   const [games, setGames] = useState([]);
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useLocalStorage('auth', {});
   const navigate = useNavigate();
 
   const userLogin = (authData) => {
