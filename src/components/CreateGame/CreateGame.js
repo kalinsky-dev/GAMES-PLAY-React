@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { GameContext } from '../../contexts/GameContext';
 import * as gameService from '../../services/gameService';
 
-const CreateGame = ({ addGameHandler }) => {
+const CreateGame = () => {
   // console.log(addGameHandler);
   const { gameAdd } = useContext(GameContext);
 
