@@ -50,7 +50,7 @@ function App() {
   useEffect(() => {
     gameService.getAll().then((result) => {
       setGames(result);
-      console.log(result);
+      // console.log(result);
     });
   }, []);
 
@@ -61,7 +61,7 @@ function App() {
           {/*Header*/}
           <Header />
           {/* Main Content */}
-          <GameContext.Provider value={{ games,gameAdd }}>
+          <GameContext.Provider value={{ games, gameAdd }}>
             <main id="main-content">
               <Routes>
                 <Route path="/" element={<Home games={games} />} />
@@ -75,10 +75,7 @@ function App() {
                   }
                 />
                 <Route path="/logout" element={<Logout />} />
-                <Route
-                  path="/create"
-                  element={<CreateGame />}
-                />
+                <Route path="/create" element={<CreateGame />} />
                 <Route path="/catalog" element={<Catalog games={games} />} />
                 <Route
                   path="/catalog/:gameId"
