@@ -1,6 +1,6 @@
+import * as gameService from '../../services/gameService';
 
-const CreateGame = ({addGameHandler}) => {
-  
+const CreateGame = ({ addGameHandler }) => {
   // console.log(addGameHandler);
 
   const onSubmit = (e) => {
@@ -9,9 +9,10 @@ const CreateGame = ({addGameHandler}) => {
     const gameData = Object.fromEntries(new FormData(e.target));
 
     // console.log(gameData);
-
-    addGameHandler(gameData);
-  }
+    gameService.create(gameData).then((result) => {
+      addGameHandler(result);
+    });
+  };
 
   return (
     <section id="create-page" className="auth">
@@ -48,12 +49,8 @@ const CreateGame = ({addGameHandler}) => {
             placeholder="Upload a photo..."
           />
           <label htmlFor="summary">Summary:</label>
-          <textarea name="summary" id="summary" defaultValue={""} />
-          <input
-            className="btn submit"
-            type="submit"
-            value="Create Game"
-          />
+          <textarea name="summary" id="summary" defaultValue={''} />
+          <input className="btn submit" type="submit" value="Create Game" />
         </div>
       </form>
     </section>
