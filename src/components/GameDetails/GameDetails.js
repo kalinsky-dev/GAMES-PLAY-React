@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 
+import * as gameService from '../../services/gameService';
 
-const GameDetails = ({
-  games,
-  addComment
-}) => {
+const GameDetails = ({ addComment }) => {
   const { gameId } = useParams();
+  const [currentGame, setCurrentGame] = useState({});
+
   const [comment, setComment] = useState({
     username: '',
     comment: '',
@@ -15,26 +15,27 @@ const GameDetails = ({
   const [error, setError] = useState({
     username: '',
     comment: '',
-  })
+  });
 
-  const game = games.find(x => x._id === gameId);
+  useEffect(() => {
+    gameService.getOne(gameId).then((result) => {
+      setCurrentGame(result);
+    });
+  },[gameId]);
 
   const addCommentHandler = (e) => {
     e.preventDefault();
 
-    // console.log(comment);
     const result = `${comment.username}: ${comment.comment}`;
 
-    addComment(gameId, result)
+    addComment(gameId, result);
   };
 
   const onChange = (e) => {
-
-    // console.log(`${e.target.name}:${e.target.value}`);
-
-    setComment(state => ({
+  // console.log(`${e.target.name}:${e.target.value}`);
+    setComment((state) => ({
       ...state,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -46,9 +47,9 @@ const GameDetails = ({
       errorMessage = 'Username must be longer than 4 characters';
     } else if (username.length > 10) {
       errorMessage = 'Username must be shorter than 10 characters';
-    };
+    }
 
-    setError(state => ({
+    setError((state) => ({
       ...state,
       username: errorMessage,
     }));
@@ -59,35 +60,35 @@ const GameDetails = ({
       <h1>Game Details</h1>
       <div className="info-section">
         <div className="game-header">
-          <img className="game-img" src={game.imageUrl} />
-          <h1>{game.title}</h1>
-          <span className="levels">MaxLevel: {game.maxLevel}</span>
-          <p className="type">{game.category}</p>
+          <img className="game-img" src={currentGame.imageUrl} />
+          <h1>{currentGame.title}</h1>
+          <span className="levels">MaxLevel: {currentGame.maxLevel}</span>
+          <p className="type">{currentGame.category}</p>
         </div>
-        <p className="text">
-          {game.summary}
-        </p>
+        <p className="text">{currentGame.summary}</p>
+
         <div className="details-comments">
           <h2>Comments:</h2>
           <ul>
-            {game.comments?.map(x =>
-              <li className="comment">
-                <p>{x}</p>
-              </li>
-            )}
+            {/* {game.comments?.map(x => 
+                            <li className="comment">
+                                <p>{x}</p>
+                            </li>
+                        )} */}
           </ul>
-          {!game.comments &&
-            <p className="no-comment">No comments.</p>
-          }
+
+          {/* {!game.comments &&
+                        <p className="no-comment">No comments.</p>
+                    } */}
         </div>
 
         <div className="buttons">
-          <a href="#" className="button">
+          <Link to={`/games/${gameId}/edit`} className="button">
             Edit
-          </a>
-          <a href="#" className="button">
+          </Link>
+          <Link to="#" className="button">
             Delete
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -96,26 +97,25 @@ const GameDetails = ({
         <form className="form" onSubmit={addCommentHandler}>
           <input
             type="text"
-            name='username'
+            name="username"
             placeholder="Kalin Hristov"
             onChange={onChange}
             onBlur={validateUsername}
             value={comment.username}
           />
-          {error.username &&
+
+          {error.username && (
             <div style={{ color: 'red' }}>{error.username}</div>
-          }
+          )}
+
           <textarea
             name="comment"
             placeholder="Comment......"
             onChange={onChange}
             value={comment.comment}
           />
-          <input
-            className="btn submit"
-            type="submit"
-            value="Add Comment"
-          />
+
+          <input className="btn submit" type="submit" value="Add Comment" />
         </form>
       </article>
     </section>
