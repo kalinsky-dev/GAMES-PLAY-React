@@ -64,7 +64,7 @@ function App() {
           <GameContext.Provider value={{ games, gameAdd }}>
             <main id="main-content">
               <Routes>
-                <Route path="/" element={<Home games={games} />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route
                   path="/register"
@@ -76,7 +76,7 @@ function App() {
                 />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/create" element={<CreateGame />} />
-                <Route path="/catalog" element={<Catalog games={games} />} />
+                <Route path="/catalog" element={<Catalog />} />
                 <Route
                   path="/catalog/:gameId"
                   element={
