@@ -1,9 +1,9 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import uniqid from 'uniqid';
 
 import * as gameService from './services/gameService';
 import { AuthContext } from './contexts/AuthContext';
+import { GameContext } from './contexts/GameContext';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -41,7 +41,7 @@ function App() {
     });
   };
 
-  const addGameHandler = (gameData) => {
+  const gameAdd = (gameData) => {
     setGames((state) => [...state, gameData]);
 
     navigate('/catalog');
@@ -61,30 +61,34 @@ function App() {
           {/*Header*/}
           <Header />
           {/* Main Content */}
-          <main id="main-content">
-            <Routes>
-              <Route path="/" element={<Home games={games} />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/register"
-                element={
-                  <Suspense fallback={<span>Loading....</span>}>
-                    <Register />
-                  </Suspense>
-                }
-              />
-              <Route path="/logout" element={<Logout />} />
-              <Route
-                path="/create"
-                element={<CreateGame addGameHandler={addGameHandler} />}
-              />
-              <Route path="/catalog" element={<Catalog games={games} />} />
-              <Route
-                path="/catalog/:gameId"
-                element={<GameDetails games={games} addComment={addComment} />}
-              />
-            </Routes>
-          </main>
+          <GameContext.Provider value={{ games,gameAdd }}>
+            <main id="main-content">
+              <Routes>
+                <Route path="/" element={<Home games={games} />} />
+                <Route path="/login" element={<Login />} />
+                <Route
+                  path="/register"
+                  element={
+                    <Suspense fallback={<span>Loading....</span>}>
+                      <Register />
+                    </Suspense>
+                  }
+                />
+                <Route path="/logout" element={<Logout />} />
+                <Route
+                  path="/create"
+                  element={<CreateGame />}
+                />
+                <Route path="/catalog" element={<Catalog games={games} />} />
+                <Route
+                  path="/catalog/:gameId"
+                  element={
+                    <GameDetails games={games} addComment={addComment} />
+                  }
+                />
+              </Routes>
+            </main>
+          </GameContext.Provider>
 
           {/* Edit Page ( Only for the creator )*/}
           {/* <section id="edit-page" className="auth">
