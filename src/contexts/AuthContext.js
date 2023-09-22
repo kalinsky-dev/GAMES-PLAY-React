@@ -28,6 +28,9 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+
+// Examples of Custom Hook & HOC
+
 // Custom Hook
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
