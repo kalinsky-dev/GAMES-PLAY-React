@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const AuthContext = createContext();
@@ -27,5 +27,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-
