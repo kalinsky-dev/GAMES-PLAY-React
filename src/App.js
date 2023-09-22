@@ -1,9 +1,8 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-import * as gameService from './services/gameService';
 import { AuthProvider } from './contexts/AuthContext';
-import { GameContext } from './contexts/GameContext';
+import { GameProvider } from './contexts/GameContext';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -18,44 +17,13 @@ import './App.css';
 const Register = lazy(() => import('./components/Register/Register'));
 
 function App() {
-  const [games, setGames] = useState([]);
-  const navigate = useNavigate();
-
-  const addComment = (gameId, comment) => {
-    setGames((state) => {
-      const game = state.find((x) => x._id === gameId);
-
-      const comments = game.comments || [];
-      comments.push(comment);
-
-      return [...state.filter((x) => x._id !== gameId), { ...game, comments }];
-    });
-  };
-
-  const gameAdd = (gameData) => {
-    setGames((state) => [...state, gameData]);
-
-    navigate('/catalog');
-  };
-
-  const gameEdit = (gameId, gameData) => {
-    setGames((state) => state.map((x) => (x._id === gameId ? gameData : x)));
-  };
-
-  useEffect(() => {
-    gameService.getAll().then((result) => {
-      setGames(result);
-      // console.log(result);
-    });
-  }, []);
-
   return (
     <AuthProvider>
       <div id="box">
         {/*Header*/}
         <Header />
         {/* Main Content */}
-        <GameContext.Provider value={{ games, gameAdd, gameEdit }}>
+        <GameProvider>
           <main id="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -68,17 +36,14 @@ function App() {
                   </Suspense>
                 }
               />
-              <Route path="/logout" element={<Logout />} />
               <Route path="/create" element={<CreateGame />} />
               <Route path="/games/:gameId/edit" element={<EditGame />} />
+              <Route path="/logout" element={<Logout />} />
               <Route path="/catalog" element={<Catalog />} />
-              <Route
-                path="/catalog/:gameId"
-                element={<GameDetails games={games} addComment={addComment} />}
-              />
+              <Route path="/catalog/:gameId" element={<GameDetails />} />
             </Routes>
           </main>
-        </GameContext.Provider>
+        </GameProvider>
       </div>
     </AuthProvider>
   );

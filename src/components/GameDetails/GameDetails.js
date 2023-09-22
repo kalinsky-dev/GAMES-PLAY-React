@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { GameContext } from '../../contexts/GameContext';
 
 import * as gameService from '../../services/gameService';
 
-const GameDetails = ({ addComment }) => {
+const GameDetails = () => {
+  const { addComment } = useContext(GameContext);
   const { gameId } = useParams();
   const [currentGame, setCurrentGame] = useState({});
 
@@ -21,7 +23,7 @@ const GameDetails = ({ addComment }) => {
     gameService.getOne(gameId).then((result) => {
       setCurrentGame(result);
     });
-  },[gameId]);
+  }, [gameId]);
 
   const addCommentHandler = (e) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ const GameDetails = ({ addComment }) => {
   };
 
   const onChange = (e) => {
-  // console.log(`${e.target.name}:${e.target.value}`);
+    // console.log(`${e.target.name}:${e.target.value}`);
     setComment((state) => ({
       ...state,
       [e.target.name]: e.target.value,
