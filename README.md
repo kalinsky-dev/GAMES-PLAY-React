@@ -4,7 +4,9 @@ This is an application to manage the Games World.
 
 ### Features
 
-The app allows visitors to browse different types of games, including the latest collections, with different levels of difficulty. Users can register with an email and password, which allows them to create their own games. Game authors can also edit or delete their own posts at any time.
+The application should dynamically display content, based on user interaction and support user profiles and CRUD operations, using a REST service. 
+
+It allows visitors to browse different types of games, including the latest collections, with different levels of difficulty. Users can register with an email and password, which allows them to create their own games. Game authors can also edit or delete their own posts at any time.
 
 Every logged-in user should be able to comments other games, but not his own. 
 Guest should not be able to see the section Add new comment, but should be able to see the section Comments.
