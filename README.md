@@ -1,3 +1,20 @@
+# Games Play
+
+This is an application to manage the Games World.
+
+### Features
+
+The app allows visitors to browse different types of games, including the latest collections, with different levels of difficulty. Users can register with an email and password, which allows them to create their own games. Game authors can also edit or delete their own posts at any time.
+
+Every logged-in user should be able to comments other games, but not his own. 
+Guest should not be able to see the section Add new comment, but should be able to see the section Comments.
+
+### Used technologies
+
+- Front-end built with React
+- Softuni-Pracite-Server for authentication and data storage
+- HTML & CSS
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -6,21 +23,34 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
-
+```
+npm start
+```
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
 
+```
+cd server && node server.js
+```
+Runs the server. 
+Be careful to run the server from the server folder in a separate terminal.
+<br>You can find more details on the: <a href="https://github.com/softuni-practice-server/softuni-practice-server/blob/master/README.md">GitHub repository of the service.</a> 
+
+
+```
+npm test
+```
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
+```
+npm run build
+```
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
@@ -29,8 +59,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
+```
+npm run eject
+```
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
 If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
