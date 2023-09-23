@@ -1,60 +1,69 @@
-import { useEffect, useState, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useEffect, useContext } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { GameContext } from '../../contexts/GameContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 import * as gameService from '../../services/gameService';
+import * as commentService from '../../services/commentService';
 
 const GameDetails = () => {
-  const { addComment } = useContext(GameContext);
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useContext(AuthContext);
+  const { addComment, fetchGameDetails, selectGame, gameRemove } =
+    useContext(GameContext);
+
   const { gameId } = useParams();
-  const [currentGame, setCurrentGame] = useState({});
 
-  const [comment, setComment] = useState({
-    username: '',
-    comment: '',
-  });
+  const currentGame = selectGame(gameId);
+  // console.log(currentGame);
 
-  const [error, setError] = useState({
-    username: '',
-    comment: '',
-  });
+  // useEffect(() => {
+  //   (async () => {
+  //     const gameDetails = await gameService.getOne(gameId);
+  //     // console.log(gameDetails);
+  //     const gameComments = await commentService.getByGameId(gameId);
+
+  //     fetchGameDetails(gameId, {
+  //       ...gameDetails,
+  //       comments: gameComments.map((x) => `${x.user.email}: ${x.text}`),
+  //     });
+  //   })();
+  // }, []);
 
   useEffect(() => {
-    gameService.getOne(gameId).then((result) => {
-      setCurrentGame(result);
+    Promise.all([
+      gameService.getOne(gameId),
+      commentService.getByGameId(gameId),
+    ]).then(([gameData, comments]) => {
+      fetchGameDetails(gameId, {
+        ...gameData,
+        comments: comments.map((x) => `${x.user.email}: ${x.text}`),
+      });
     });
-  }, [gameId]);
+  }, []);
 
   const addCommentHandler = (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    const comment = formData.get('comment');
 
-    const result = `${comment.username}: ${comment.comment}`;
-
-    addComment(gameId, result);
+    commentService.create(gameId, comment).then((result) => {
+      // console.log(result);
+      addComment(gameId, comment);
+    });
   };
 
-  const onChange = (e) => {
-    // console.log(`${e.target.name}:${e.target.value}`);
-    setComment((state) => ({
-      ...state,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const gameDeleteHandler = () => {
+    const confirmation = window.confirm(
+      'Are you sure you want to delete this game?'
+    );
 
-  const validateUsername = (e) => {
-    const username = e.target.value;
-    let errorMessage = '';
-
-    if (username.length < 4) {
-      errorMessage = 'Username must be longer than 4 characters';
-    } else if (username.length > 10) {
-      errorMessage = 'Username must be shorter than 10 characters';
+    if (confirmation) {
+      gameService.remove(gameId).then(() => {
+        gameRemove(gameId);
+        navigate('/catalog');
+      });
     }
-
-    setError((state) => ({
-      ...state,
-      username: errorMessage,
-    }));
   };
 
   return (
@@ -72,50 +81,30 @@ const GameDetails = () => {
         <div className="details-comments">
           <h2>Comments:</h2>
           <ul>
-            {/* {game.comments?.map(x => 
-                            <li className="comment">
-                                <p>{x}</p>
-                            </li>
-                        )} */}
+            {currentGame.comments?.map((x) => (
+              <li key={x} className="comment">
+                <p>{x}</p>
+              </li>
+            ))}
           </ul>
 
-          {/* {!game.comments &&
-                        <p className="no-comment">No comments.</p>
-                    } */}
+          {!currentGame.comments && <p className="no-comment">No comments.</p>}
         </div>
 
         <div className="buttons">
           <Link to={`/games/${gameId}/edit`} className="button">
             Edit
           </Link>
-          <Link to="#" className="button">
+          <button onClick={gameDeleteHandler} className="button">
             Delete
-          </Link>
+          </button>
         </div>
       </div>
 
       <article className="create-comment">
         <label>Add new comment:</label>
         <form className="form" onSubmit={addCommentHandler}>
-          <input
-            type="text"
-            name="username"
-            placeholder="Kalin Hristov"
-            onChange={onChange}
-            onBlur={validateUsername}
-            value={comment.username}
-          />
-
-          {error.username && (
-            <div style={{ color: 'red' }}>{error.username}</div>
-          )}
-
-          <textarea
-            name="comment"
-            placeholder="Comment......"
-            onChange={onChange}
-            value={comment.comment}
-          />
+          <textarea name="comment" placeholder="Comment......" />
 
           <input className="btn submit" type="submit" value="Add Comment" />
         </form>
