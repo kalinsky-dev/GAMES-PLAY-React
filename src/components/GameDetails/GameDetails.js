@@ -15,12 +15,12 @@ const GameDetails = () => {
   const { gameId } = useParams();
 
   const currentGame = selectGame(gameId);
-  // console.log(currentGame);
 
+  // console.log(currentGame);
   // useEffect(() => {
   //   (async () => {
   //     const gameDetails = await gameService.getOne(gameId);
-  //     // console.log(gameDetails);
+  //     console.log(gameDetails);
   //     const gameComments = await commentService.getByGameId(gameId);
 
   //     fetchGameDetails(gameId, {
