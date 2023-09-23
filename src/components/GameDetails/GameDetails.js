@@ -49,7 +49,19 @@ const GameDetails = () => {
 
     commentService.create(gameId, comment).then((result) => {
       // console.log(result);
-      addComment(gameId, comment);
+      // addComment(gameId, comment);
+
+      // Fetch the games from the Server when comment is added successfully,
+      // then I change the games State and the GameDetails Page rerender with the new comments!
+      Promise.all([
+        gameService.getOne(gameId),
+        commentService.getByGameId(gameId),
+      ]).then(([gameData, comments]) => {
+        fetchGameDetails(gameId, {
+          ...gameData,
+          comments: comments.map((x) => `${x.user.email}: ${x.text}`),
+        });
+      });
     });
   };
 
