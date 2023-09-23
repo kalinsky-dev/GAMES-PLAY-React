@@ -8,15 +8,17 @@ import * as commentService from '../../services/commentService';
 
 const GameDetails = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { addComment, fetchGameDetails, selectGame, gameRemove } =
     useContext(GameContext);
 
   const { gameId } = useParams();
 
   const currentGame = selectGame(gameId);
-
+  // console.log(user);
   // console.log(currentGame);
+  const isOwner = currentGame._ownerId === user._id;
+
   // useEffect(() => {
   //   (async () => {
   //     const gameDetails = await gameService.getOne(gameId);
@@ -103,14 +105,16 @@ const GameDetails = () => {
           {!currentGame.comments && <p className="no-comment">No comments.</p>}
         </div>
 
-        <div className="buttons">
-          <Link to={`/games/${gameId}/edit`} className="button">
-            Edit
-          </Link>
-          <button onClick={gameDeleteHandler} className="button">
-            Delete
-          </button>
-        </div>
+        {isOwner && (
+          <div className="buttons">
+            <Link to={`/games/${gameId}/edit`} className="button">
+              Edit
+            </Link>
+            <button onClick={gameDeleteHandler} className="button">
+              Delete
+            </button>
+          </div>
+        )}
       </div>
 
       <article className="create-comment">
