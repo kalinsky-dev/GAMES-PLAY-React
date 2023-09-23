@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { GameProvider } from './contexts/GameContext';
 import PrivateRoute from './components/common/PrivateRoute';
+import PrivateGuard from './components/common/PrivateGuard';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -45,8 +46,10 @@ function App() {
                   </PrivateRoute>
                 }
               />
-              <Route path="/games/:gameId/edit" element={<EditGame />} />
-              <Route path="/logout" element={<Logout />} />
+              <Route element={<PrivateGuard />}>
+                <Route path="/games/:gameId/edit" element={<EditGame />} />
+                <Route path="/logout" element={<Logout />} />
+              </Route>
               <Route path="/catalog" element={<Catalog />} />
               <Route path="/catalog/:gameId" element={<GameDetails />} />
             </Routes>
