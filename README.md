@@ -11,10 +11,12 @@ It allows visitors to browse different types of games, including the latest coll
 Every logged-in user should be able to comments other games, but not his own. 
 Guest should not be able to see the section Add new comment, but should be able to see the section Comments.
 
-### Used technologies
+### Used Technologies & Dependencies
 
 - Front-end built with React
 - Softuni-Pracite-Server for authentication and data storage
+- react-router-dom
+- uniqid
 - HTML & CSS
 
 # Getting Started with Create React App
