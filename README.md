@@ -13,7 +13,7 @@ Guest should not be able to see the section Add new comment, but should be able 
 
 ### Used Technologies & Dependencies
 
-- Front-end built with React
+- Front-end built with ReactJS + JSX
 - Softuni-Pracite-Server for authentication and data storage
 - react-router-dom
 - uniqid
